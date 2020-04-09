@@ -1,0 +1,75 @@
+<script>
+    var ctx = document.getElementById('myChart');
+    var labelDate = JSON.parse('<%- date %>');
+    console.log('labelDate: ', labelDate);
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: labelDate,
+            datasets: [{
+                label: 'bpm',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                fill: 'false',
+                data: [<%= heartbeats %>]
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+
+    function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+    }
+
+    // Add a point
+    var addPoint = document.getElementById('addPoint');
+    
+    addPoint.addEventListener("click", function(){
+        var addData = setInterval(function(){ 
+            chart.data.labels.push("05:51:00 PM");
+            var randomNumber = getRandomIntInclusive(125,140);
+            chart.data.datasets[0].data.push(randomNumber);
+            chart.update();
+        }, 1000);
+
+        var stopInterval = document.getElementById('stopData');
+        stopInterval.addEventListener("click", function() {
+            clearInterval(addData);
+        })
+
+    });
+
+
+
+    var notifyMe = document.getElementById('notifyMe');
+    notifyMe.addEventListener("click", function(){
+        var ACCESS_CODE = JSON.parse('<%- accessCode %>');
+
+        var xhr = new XMLHttpRequest();
+        var url = "https://api.notifymyecho.com/v1/NotifyMe" + "?notification=Your heartbeat is irregular. If you continue to experience palpitations please consult a doctor." + "&accessCode=" + ACCESS_CODE;
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState != 4) return;
+
+            if (this.status == 200) {
+                var data = JSON.parse(this.responseText);
+                console.log('data: ', data);
+
+                // we get the returned data
+            }
+
+            // end of state change: it can be after some time (async)
+        };
+
+        xhr.open('GET', url, true);
+        xhr.send();
+    });
+    
+</script>

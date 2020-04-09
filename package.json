@@ -11,11 +11,17 @@
     "test": "node test.js"
   },
   "dependencies": {
-    "ejs": "^2.5.6",
-    "express": "^4.15.2"
+    "canvas": "^2.6.1",
+    "chart.js": "^2.9.3",
+    "chartjs": "^0.3.24",
+    "ejs": "^2.7.4",
+    "express": "^4.17.1",
+    "gyp": "^0.5.0",
+    "node-gyp": "^6.1.0",
+    "rebuild": "^0.1.2"
   },
   "devDependencies": {
-    "request": "^2.81.0",
+    "request": "^2.88.2",
     "tape": "^4.7.0"
   },
   "repository": {
