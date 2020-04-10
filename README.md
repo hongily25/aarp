@@ -1,39 +1,15 @@
-# node-js-getting-started
+# My Heartbeat
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+My heartbeat is an application that uses real data from Fitbit to analyze heartbeat abnormalities. If it detects an elevated heart rate over a period of time, it automatically turns on a fan to cool down the user if they’re experiencing hot flashes. It also notifies the user through any Amazon echo device. Finally it also uses an Echo button to turn off the smart fan remotely. Here is a simulation of heart palpitations.
 
-This application supports the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+# Dataset
 
-## Running Locally
+heartbeat.json is real user data from Fitbit using the Fitbit Intraday Heartbeat API.
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
+# How it works
 
-```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
-```
+The simulation adds data points to the chart to simulate a user experiencing heart palpitations. If the user has an elevated heart rate over the period of five data points, it triggers an Alexa routine that turns on a smart fan and alerts the user through any echo device.
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+# Demo
 
-## Deploying to Heroku
-
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-or
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+The application is available at https://damp-gorge-66037.herokuapp.com/
