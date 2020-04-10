@@ -88,7 +88,7 @@
 
         console.log('average: ', average);
         var xhr = new XMLHttpRequest();
-        var url = "https://api.notifymyecho.com/v1/NotifyMe?notification=For the past five minutes your average heartrate has been" + average + " and is more elevated than usual. If you continue to experience irregular heart beats please consult a doctor." + + "&accessCode=" + ACCESS_CODE;
+        var url = "https://api.notifymyecho.com/v1/NotifyMe?notification=For the past five minutes your average heartrate has been" + average + " and is more elevated than usual. If you continue to experience irregular heart beats please consult a doctor&accessCode=" + NOTIFY_CODE;
 
         xhr.onreadystatechange = function () {
             if (this.readyState != 4) return;
