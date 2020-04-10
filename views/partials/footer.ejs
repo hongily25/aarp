@@ -59,7 +59,7 @@
             var sec = date.getSeconds();
             var newDate = "6:" + min.toPrecision(2) + ":" + sec.toPrecision(2) + " PM";
             chart.data.labels.push(newDate);
-            var randomNumber = getRandomIntInclusive(125,145);
+            var randomNumber = getRandomIntInclusive(122,145);
             chart.data.datasets[0].data.push(randomNumber);
             chart.update();
             if (i === 5) {
@@ -86,21 +86,10 @@
         }
         var average = Math.floor(sum/5);
 
-        console.log('average: ', average);
-        var xhr = new XMLHttpRequest();
-        var url = "https://api.notifymyecho.com/v1/NotifyMe?notification=For the past five minutes your average heartrate has been" + average + " and is more elevated than usual. If you continue to experience irregular heart beats please consult a doctor&accessCode=" + NOTIFY_CODE;
+        var msg = "Over the past five readings your average heart rate is " + average + " bpm. It is more elevated than usual. If you continue to experience irregular heart beats please consult a doctor.";
 
-        xhr.onreadystatechange = function () {
-            if (this.readyState != 4) return;
-
-            if (this.status == 200) {
-                var data = JSON.parse(this.responseText);
-                console.log('data: ', data);
-            }
-        };
-
-        xhr.open('GET', url, true);
-        xhr.send();
+        document.getElementById('heartbeatMsg').innerHTML = msg;
+        
     };
 
     var notifyMe = document.getElementById('notifyMe');
