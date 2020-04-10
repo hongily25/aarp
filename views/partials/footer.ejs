@@ -28,32 +28,12 @@
         return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
     }
 
-    // Add a point
-    var addPoint = document.getElementById('addPoint');
-    
-    addPoint.addEventListener("click", function(){
-        var addData = setInterval(function(){ 
-            chart.data.labels.push("05:51:00 PM");
-            var randomNumber = getRandomIntInclusive(125,140);
-            chart.data.datasets[0].data.push(randomNumber);
-            chart.update();
-        }, 1000);
-
-        var stopInterval = document.getElementById('stopData');
-        stopInterval.addEventListener("click", function() {
-            clearInterval(addData);
-        })
-
-    });
-
-
-
-    var notifyMe = document.getElementById('notifyMe');
-    notifyMe.addEventListener("click", function(){
+    // Start fan
+    function startFan(){
         var ACCESS_CODE = JSON.parse('<%- accessCode %>');
 
         var xhr = new XMLHttpRequest();
-        var url = "https://api.notifymyecho.com/v1/NotifyMe" + "?notification=Your heartbeat is irregular. If you continue to experience palpitations please consult a doctor." + "&accessCode=" + ACCESS_CODE;
+        var url = "https://api.virtualbuttons.com/v1?virtualButton=1&accessCode=" + ACCESS_CODE;
 
         xhr.onreadystatechange = function () {
             if (this.readyState != 4) return;
@@ -61,15 +41,69 @@
             if (this.status == 200) {
                 var data = JSON.parse(this.responseText);
                 console.log('data: ', data);
-
-                // we get the returned data
             }
-
-            // end of state change: it can be after some time (async)
         };
 
         xhr.open('GET', url, true);
         xhr.send();
+    };
+
+    // Add a point
+    var addPoint = document.getElementById('addPoint');
+    
+    addPoint.addEventListener("click", function(){
+        let i = 0;
+        var addData = setInterval(function(){ 
+            var date = new Date();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+            var newDate = "6:" + min.toPrecision(2) + ":" + sec.toPrecision(2) + " PM";
+            chart.data.labels.push(newDate);
+            var randomNumber = getRandomIntInclusive(125,145);
+            chart.data.datasets[0].data.push(randomNumber);
+            chart.update();
+            if (i === 5) {
+                startFan();
+            }
+            i++;
+        }, 1000);
+
+        var stopInterval = document.getElementById('stopData');
+        stopInterval.addEventListener("click", function() {
+            clearInterval(addData);
+        })
     });
+
+    // Analyze heartbeat
+    function analyzeHeartbeat(){
+        var NOTIFY_CODE = JSON.parse('<%- notifyCode %>');
+        var chartData = chart.data.datasets[0].data;
+        console.log('chartData: ', chartData);
+        var sum = chartData[chartData.length - 1];
+        for (let i = chartData.length - 2 ; i > chartData.length - 6; i--) {
+            console.log('chart.data.datasets[0].data: ', chartData[i]);
+            sum += chartData[i];
+        }
+        var average = Math.floor(sum/5);
+
+        console.log('average: ', average);
+        var xhr = new XMLHttpRequest();
+        var url = "https://api.notifymyecho.com/v1/NotifyMe?notification=For the past five minutes your average heartrate has been" + average + " and is more elevated than usual. If you continue to experience irregular heart beats please consult a doctor." + + "&accessCode=" + ACCESS_CODE;
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState != 4) return;
+
+            if (this.status == 200) {
+                var data = JSON.parse(this.responseText);
+                console.log('data: ', data);
+            }
+        };
+
+        xhr.open('GET', url, true);
+        xhr.send();
+    };
+
+    var notifyMe = document.getElementById('notifyMe');
+    notifyMe.addEventListener("click", analyzeHeartbeat);
     
 </script>

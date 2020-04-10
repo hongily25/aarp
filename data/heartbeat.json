@@ -1078,4 +1078,40 @@
       "bpm" : 115,
       "confidence" : 2
     }
+  },{
+    "dateTime" : "02/17/15 05:51:10",
+    "value" : {
+      "bpm" : 120,
+      "confidence" : 2
+    }
+  },{
+    "dateTime" : "02/17/15 05:52:30",
+    "value" : {
+      "bpm" : 119,
+      "confidence" : 2
+    }
+  },{
+    "dateTime" : "02/17/15 05:52:30",
+    "value" : {
+      "bpm" : 124,
+      "confidence" : 2
+    }
+  },{
+    "dateTime" : "02/17/15 05:52:30",
+    "value" : {
+      "bpm" : 122,
+      "confidence" : 2
+    }
+  },{
+    "dateTime" : "02/17/15 05:52:30",
+    "value" : {
+      "bpm" : 124,
+      "confidence" : 2
+    }
+  },{
+    "dateTime" : "02/17/15 05:52:30",
+    "value" : {
+      "bpm" : 125,
+      "confidence" : 2
+    }
   }]
