@@ -12,7 +12,6 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => {
-    console.log(heartbeats[0]);
     let dataset = {
       bpm: [],
       date: [],
