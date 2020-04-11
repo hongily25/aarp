@@ -6,6 +6,7 @@ My heartbeat is an application that uses real data from Fitbit to analyze heartb
 
 Hot flashes
 - This application helps users suffering from hot flashes by cooling them down with an automated fan.
+
 Irregular heartbeats
 - The application alerts users through any Amazon echo device if they are experiencing irregular heartbeats.
 
