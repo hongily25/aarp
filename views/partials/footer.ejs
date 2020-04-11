@@ -1,7 +1,6 @@
 <script>
     var ctx = document.getElementById('myChart');
     var labelDate = JSON.parse('<%- date %>');
-    console.log('labelDate: ', labelDate);
     var chart = new Chart(ctx, {
         // The type of chart we want to create
         type: 'line',
@@ -40,7 +39,6 @@
 
             if (this.status == 200) {
                 var data = JSON.parse(this.responseText);
-                console.log('data: ', data);
             }
         };
 
@@ -78,10 +76,8 @@
     function analyzeHeartbeat(){
         var NOTIFY_CODE = JSON.parse('<%- notifyCode %>');
         var chartData = chart.data.datasets[0].data;
-        console.log('chartData: ', chartData);
         var sum = chartData[chartData.length - 1];
         for (let i = chartData.length - 2 ; i > chartData.length - 6; i--) {
-            console.log('chart.data.datasets[0].data: ', chartData[i]);
             sum += chartData[i];
         }
         var average = Math.floor(sum/5);
@@ -89,7 +85,6 @@
         var msg = "Over the past five readings your average heart rate is " + average + " bpm. It is more elevated than usual. If you continue to experience irregular heart beats please consult a doctor.";
 
         document.getElementById('heartbeatMsg').innerHTML = msg;
-        
     };
 
     var notifyMe = document.getElementById('notifyMe');
